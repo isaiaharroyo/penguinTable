@@ -1,3 +1,5 @@
+var penPromiseOG = d3.json("classData.json");
+
 var penPromise = d3.json("classData.json");
 
 penPromise.then(
@@ -8,6 +10,7 @@ function(data)
         testMean(data);
         homeworkMean(data);
         calcFinal(data);
+        sortQuiz();
         console.log("Data Loaded",data);
     },
 function(err)
@@ -15,21 +18,27 @@ function(err)
         console.log("Broke",err);
     })
 
-
 var makePenTable = function(penguin)
 {
     //appends tbody to the thead
-    var tableBody = d3.select("thead").append("tbody")
-        .data(penguin)
-        .enter()
-        .append(row)
+    //var tableBody = d3.select("table")
+        //.data(penguin)
+        //.enter()
+        
+    d3.select("table").append("th").text("Image")
+        .on("click", function(d)
+           {alert("hello");})
+    d3.select("table").append("th").text("Quiz Mean")
+    d3.select("table").append("th").text("Test Mean")
+    d3.select("table").append("th").text("Homework Mean")
+    d3.select("table").append("th").text("Final Grade")        
+    
     //appends rows with data to the tbody
     var row = d3.select("table").selectAll("tr")
         .data(penguin)
         .enter()
         .append("tr")
-        
-        
+    
     //appends image to beginning of the row
         row.append("td")
         .append("img")
@@ -41,25 +50,25 @@ var makePenTable = function(penguin)
         .append("span")
         .text(function(d)
              {return quizMean(d)})
+    
     //testMean
-    row.append("td")
-    .append("span")
-    .text(function(d)
-          {return testMean(d)})
+        row.append("td")
+        .append("span")
+        .text(function(d)
+              {return testMean(d)})
+    
     //homeworkMean
-    row.append("td")
-    .append("span")
-    .text(function(d)
-         {return homeworkMean(d)})
+        row.append("td")
+        .append("span")
+        .text(function(d)
+             {return homeworkMean(d)})
+    
     //final grade
-    row.append("td")
-    .append("span")
-    .text(function(d){return calcFinal(d)})
-    /*if (calcFinal(penguin) < 70)
-        {
-          .style("background-color", "red")  
-        }
-    */
+        row.append("td")
+        .append("span")
+        .text(function(d)
+              {return calcFinal(d)})
+    
 }
 
 var quizMean = function(penguin)
@@ -93,7 +102,23 @@ var getGrade = function(assignment)
 {
     return assignment.grade;
 }
-var redFinal = function(penguin)
+
+var alert = function()
 {
-    
+    if (calcFinal(d) < 70)
+    {
+        return d3.select("tr").style("background-color", "red")
+    }
+    else
+    {
+        
+    }
+}
+
+var sortQuiz = function()
+{
+    penPromise.sort(function(a,b)
+    {
+        return a.quizes-b.quizes;
+    });
 }
