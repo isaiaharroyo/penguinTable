@@ -12,6 +12,9 @@ function(data)
         quizArray(data);
         console.log("Data Loaded",data);
     },
+    
+    
+    
 function(err)
     {
         console.log("Broke",err);
