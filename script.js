@@ -25,16 +25,16 @@ var makePenTable = function(penguin)
     d3.select("table").append("th").text("Image")
     d3.select("table").append("th").text("Quiz Mean")
         .on("click", function(d)
-           {alert("hello"); });
+           {alert("You clicked Quiz Mean!"); });
     d3.select("table").append("th").text("Test Mean")
         .on("click", function(d)
-           {alert("hello"); });
+           {alert("You clicked Test Mean!"); });
     d3.select("table").append("th").text("Homework Mean")
         .on("click", function(d)
-           {alert("hello"); });
+           {alert("You clicked Homework Mean!"); });
     d3.select("table").append("th").text("Final Grade")
         .on("click", function(d)
-           {alert("hello"); });
+           {alert("You clicked Final Grade!"); });
     
     //appends rows with data to the tbody
     var row = d3.select("table").selectAll("tr")
