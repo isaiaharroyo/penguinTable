@@ -9,7 +9,7 @@ function(data)
         homeworkMean(data);
         calcFinal(data);
         idFunct();
-        //sortQuiz();
+        quizArray(data);
         console.log("Data Loaded",data);
     },
 function(err)
@@ -20,12 +20,18 @@ function(err)
 var makePenTable = function(penguin)
 {        
     d3.select("table").append("th").text("Image")
+    d3.select("table").append("th").text("Quiz Mean")
         .on("click", function(d)
            {alert("hello"); });
-    d3.select("table").append("th").text("Quiz Mean");
-    d3.select("table").append("th").text("Test Mean");
-    d3.select("table").append("th").text("Homework Mean");
-    d3.select("table").append("th").text("Final Grade");
+    d3.select("table").append("th").text("Test Mean")
+        .on("click", function(d)
+           {alert("hello"); });
+    d3.select("table").append("th").text("Homework Mean")
+        .on("click", function(d)
+           {alert("hello"); });
+    d3.select("table").append("th").text("Final Grade")
+        .on("click", function(d)
+           {alert("hello"); });
     
     //appends rows with data to the tbody
     var row = d3.select("table").selectAll("tr")
@@ -35,6 +41,17 @@ var makePenTable = function(penguin)
     
     //appends image to beginning of the row
         row.append("td")
+        .attr("id",function(d)
+              {
+                if (calcFinal(d) >= 70)
+                {
+                  return "pass";
+                }
+                else
+                {
+                   return "fail";
+                }
+              })
         .append("img")
         .attr("src", function(d)
              {return d.picture})
@@ -43,37 +60,37 @@ var makePenTable = function(penguin)
         row.append("td")
         .append("span")
         .text(function(d)
-             {return quizMean(d)})
+             {return quizMean(d).toFixed(2)})
     
     //testMean
         row.append("td")
         .append("span")
         .text(function(d)
-              {return testMean(d)})
+              {return testMean(d).toFixed(2)})
     
     //homeworkMean
         row.append("td")
         .append("span")
         .text(function(d)
-             {return homeworkMean(d)})
+             {return homeworkMean(d).toFixed(2)})
  
     //final grade
         row.append("td")
+        .attr("id",function(d)
+              {
+                if (calcFinal(d) >= 70)
+                {
+                  return "pass";
+                }
+                else
+                {
+                   return "fail";
+                }
+              })
         .append("span")
         .text(function(d)
-              {var final = calcFinal(d);
-              console.log(final);
-              if (final < 70)
-              {
-                  console.log("hello")
-                  row.select("td").style("background-color", "red");
-              }
-              else if (final >= 70)
-              {
-                   console.log("help")
-                   row.select("td").style("background-color", "blue");
-              }
-              return final})
+              {return calcFinal(d).toFixed(2)})
+
 }
 
 var quizMean = function(penguin)
@@ -114,13 +131,11 @@ var idFunct = function()
     d3.select("td").attr("id","color");
 }
 
-
-
-
-//var sortQuiz = function()
-//{
-    //penPromise.sort(function(a,b)
-    //{
-    //    return a.quizes-b.quizes;
-    //});
-//}
+var quizArray = function(penguin)
+{
+    var sorted = penguin.quizes.map(getGrade).sort(function(a,b)
+    {
+        return b.quizes - a.quizes;
+    })
+    return sorted;                                  
+}

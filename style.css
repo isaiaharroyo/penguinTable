@@ -1,7 +1,7 @@
 body
 {
     background-color: antiquewhite;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
@@ -37,3 +37,12 @@ table
     border-collapse: collapse;
 }
 
+#pass
+{
+    background-color: limegreen;
+}
+
+#fail
+{
+    background-color: red;
+}
