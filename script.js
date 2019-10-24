@@ -56,22 +56,22 @@ var makePenTable = function(penguin)
         .append("span")
         .text(function(d)
              {return homeworkMean(d)})
-    
+ 
     //final grade
         row.append("td")
         .append("span")
         .text(function(d)
               {var final = calcFinal(d);
               console.log(final);
-              if (final >= 70)
+              if (final < 70)
               {
                   console.log("hello")
-                  d3.select("td").attr("id","good")//style("background-color", "red");
+                  row.select("td").style("background-color", "red");
               }
-              else if (final < 70)
+              else if (final >= 70)
               {
                    console.log("help")
-                   d3.select("td").attr("bad")//style("background-color", "blue");
+                   row.select("td").style("background-color", "blue");
               }
               return final})
 }
@@ -113,6 +113,9 @@ var idFunct = function()
 {
     d3.select("td").attr("id","color");
 }
+
+
+
 
 //var sortQuiz = function()
 //{
